@@ -25,6 +25,7 @@ defineProps({
                 class="text-sm text-gray-700 dark:text-gray-500 underline"
                 >Dashboard</Link
             >
+            
 
             <template v-else>
                 <Link
@@ -39,6 +40,8 @@ defineProps({
                     class="ml-4 text-sm text-green-700 dark:text-green-500 underline"
                     >Register</Link
                 >
+
+                
             </template>
         </div>
         <div>
