@@ -23,19 +23,19 @@ import { Head } from "@inertiajs/inertia-vue3";
                 <div id="object">
                     <button id="bgButton">
                         <img id="quizImg" src="../../imgs/quiz.png" />
-                        <a>Generate Quiz</a>
+                        <b><a id="ref">Generate Quiz</a></b>
                     </button>
                 </div>
                 <div id="object">
                     <button id="bgButton">
                         <img id="quizImg" src="../../imgs/accountIcon.webp" />
-                        <a>Account Information</a>
+                        <b><a id="ref">Account Information</a></b>
                     </button>
                 </div>
                 <div id="object">
                     <button id="bgButton">
                         <img id="quizImg" src="../../imgs/addQuestion.webp" />
-                        <a>Create Question(s)</a>
+                        <b><a id="ref">Create Question(s)</a></b>
                     </button>
                 </div>
             </div>
@@ -49,9 +49,16 @@ import { Head } from "@inertiajs/inertia-vue3";
     margin-top:5em;
 }
 
-
-#object {
+#object{
     margin-bottom: 3em;
+}
+
+#bgButton:hover{
+    box-shadow: 4px 8px #24c55e;
+    transform: translateY(-10px);
+    color:#24c55e;
+    width: 13.5em;
+    height: 13.5em;
 }
 
 #bgButton {
@@ -60,10 +67,13 @@ import { Head } from "@inertiajs/inertia-vue3";
     width: 13em;
     height: 13em;
     text-align: -webkit-center;
+    box-shadow: 2px 4px #24c55e;
+    transition: all ease 0.25s;
 }
 
 #quizImg {
     width: 10em;
     height: 10em;
 }
+
 </style>
