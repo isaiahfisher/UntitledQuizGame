@@ -1,6 +1,6 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
@@ -12,40 +12,58 @@ import { Head } from '@inertiajs/inertia-vue3';
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        You're logged in!
-                    </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    You're logged in!
                 </div>
+            </div>
         </div>
-
-        <div class="py-12">
-            <div id="col" class="grid grid-cols-4">
+        <div id="mainDiv" class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-3">
                 <div id="object">
-                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Option 1</button>
+                    <button id="bgButton">
+                        <img id="quizImg" src="../../imgs/quiz.png" />
+                        <a>Generate Quiz</a>
+                    </button>
                 </div>
                 <div id="object">
-                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Option 2</button>
+                    <button id="bgButton">
+                        <img id="quizImg" src="../../imgs/accountIcon.webp" />
+                        <a>Account Information</a>
+                    </button>
                 </div>
                 <div id="object">
-                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Option 3</button>
-                </div>
-                <div id="object">
-                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Option 4</button>
+                    <button id="bgButton">
+                        <img id="quizImg" src="../../imgs/addQuestion.webp" />
+                        <a>Create Question(s)</a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <style>
-#col{
-    padding-left: 5em;
-    padding-right: 5em;
+#mainDiv{
+    text-align: -webkit-center;
+    margin-top:5em;
 }
 
-#object{
-    justify-self: center;
+
+#object {
+    margin-bottom: 3em;
+}
+
+#bgButton {
+    background-color: white;
+    border-radius: 25px;
+    width: 13em;
+    height: 13em;
+    text-align: -webkit-center;
+}
+
+#quizImg {
+    width: 10em;
+    height: 10em;
 }
 </style>
