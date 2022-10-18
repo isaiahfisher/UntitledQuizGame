@@ -13,7 +13,7 @@ defineProps({
     <Head title="Untitled Quiz Game!" />
 
     <div
-        class="relative flex items-top justify-center min-h-screen bg-stone-900 sm:items-center sm:pt-0"
+        class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-stone-900 sm:items-center sm:pt-0"
     >
         <div
             v-if="canLogin"
