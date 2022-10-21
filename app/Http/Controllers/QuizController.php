@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizQuestion;
+use Inertia\Inertia;
 
 class QuizController extends Controller
 {
@@ -21,15 +22,14 @@ class QuizController extends Controller
             $totalPossiblePoints += $question->points;
         }
 
-        $quiz = Quiz::firstOrCreate([
+        $quiz = Quiz::create([
             'user_id' => $user->id,
             'total_possible_points' => $totalPossiblePoints,
         ]); 
 
         $quiz->questions()->attach($questions->pluck('id'));
+        
 
-        dd($quiz);
-
-        //return view with quiz  return('take-quiz', ['quiz' => $quiz]);
+        return Inertia::render('Quiz',['quiz' => $quiz ->load('questions')]);
     }
 }
