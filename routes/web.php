@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 use Inertia\Inertia;
 
 /*
@@ -25,5 +26,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/quiz', [QuizController::class, 'create'])->name('generate-quiz');
 
 require __DIR__.'/auth.php';

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class QuizQuestion extends Pivot
 {
     public $incrementing = true;
-    public $table = "quiz_questions";
+    public $table = "question_quiz";
+    protected $guarded = [];
 
     public function question()
     {
