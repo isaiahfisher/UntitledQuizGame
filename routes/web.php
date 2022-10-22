@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionUploadController;
+//use App\Http\Controllers\AccountController;
 use Inertia\Inertia;
 
 /*

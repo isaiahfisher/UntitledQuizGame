@@ -131,11 +131,6 @@ let date = new Date(Date.parse(props.auth.user.created_at));
     width:48.5em;
 }
 
-/* #statsDataDiv{
-
-} */
-
-
 #accountDiv {
     justify-items: center;
     margin-bottom: 1em;
