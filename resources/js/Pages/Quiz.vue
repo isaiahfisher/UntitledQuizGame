@@ -28,8 +28,8 @@
 
                 <button className="submitBtn"
                     @click="
-                        nextQuestion();
                         answerQuestion();
+                        nextQuestion();
                     "
                 >
                     Next
@@ -96,19 +96,22 @@ const getCurrentQuestion = computed(() => {
 const nextQuestion = () => {
     
 
-    window.axios.post('api/quiz/' + props.quiz.id + '/question/' + props.quiz.questions[currentQuestion.value].id + '/answer', 
-    {answer: answer.value});
+    
 
     if (currentQuestion.value < props.quiz.questions.length - 1) {
         currentQuestion.value++;
-    } else {
+    } else { 
+        window.axios.post('api/quiz/' + props.quiz.id, {earned_points: score.value});
         quizCompleted.value = true;
     }
 };
 const answerQuestion = () => {
-    if (answer.value == props.quiz.questions[0].correct_answer) {
+    if (answer.value == props.quiz.questions[currentQuestion.value].correct_answer) {
         score.value++;
     }
+    window.axios.post('api/quiz/' + props.quiz.id + '/question/' + props.quiz.questions[currentQuestion.value].id + '/answer', 
+    {answer: answer.value});
+    answer.value = "";
     return score;
 };
 

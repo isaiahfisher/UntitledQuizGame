@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AnswerController;
+use App\Http\Controllers\Api\GradeQuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,6 @@ use App\Http\Controllers\Api\AnswerController;
 */
 
 Route::prefix('quiz')->name('quizzes.')->group(function () {
+    Route::post('{quiz}', GradeQuizController::class);
     Route::post('{quiz}/question/{question}/answer', AnswerController::class);
 });
