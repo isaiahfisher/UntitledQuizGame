@@ -94,10 +94,6 @@ const getCurrentQuestion = computed(() => {
     return question;
 });
 const nextQuestion = () => {
-    
-
-    
-
     if (currentQuestion.value < props.quiz.questions.length - 1) {
         currentQuestion.value++;
     } else { 
@@ -105,6 +101,7 @@ const nextQuestion = () => {
         quizCompleted.value = true;
     }
 };
+
 const answerQuestion = () => {
     if (answer.value == props.quiz.questions[currentQuestion.value].correct_answer) {
         score.value++;
@@ -160,7 +157,7 @@ h1 {
     background-color: #5e5c5b;
     padding: 1rem;
     width: 100%;
-    max-width: 640px;
+    max-width: 900px;
     border: 1px solid #2cce7d;
     border-radius:20px;
 }

@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuestionUploadController;
 use Inertia\Inertia;
 
 /*
@@ -33,8 +34,10 @@ Route::get('/account', function(){
     return Inertia::render('Account');
 })->middleware(['auth','verified'])->name('account');
 
-Route::get('/create-question', function(){
+Route::get('/question/create', function(){
     return Inertia::render('CreateQuestion');
 })->middleware(['auth','verified'])->name('create-question');
+
+Route::post('/question/store', QuestionUploadController::class)->middleware(['auth','verified'])->name('store-question');
 
 require __DIR__.'/auth.php';

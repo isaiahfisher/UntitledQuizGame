@@ -1,7 +1,4 @@
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/inertia-vue3";
-</script>
+
 
 <template>
     <Head title="Add a Question" />
@@ -24,7 +21,7 @@ import { Head } from "@inertiajs/inertia-vue3";
             <div id="holderDiv">
                 <div id="formDiv">
                     <form
-                        @submit.prevent="submit"
+                        @submit.prevent="Submit"
                         class="w-full max-w-lg min-h-screen"
                     >
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -40,7 +37,7 @@ import { Head } from "@inertiajs/inertia-vue3";
 
                                 <textarea
                                     type="text"
-                                    v-model="question"
+                                    v-model="form.question"
                                     name="questionContent"
                                     id="textArea"
                                     placeholder="Insert Question Here"
@@ -60,7 +57,7 @@ import { Head } from "@inertiajs/inertia-vue3";
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-answer"
-                                    v-model="answer"
+                                    v-model="form.answer"
                                     type="text"
                                     placeholder="Insert Answer Here"
                                 />
@@ -77,7 +74,7 @@ import { Head } from "@inertiajs/inertia-vue3";
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-answer"
-                                    v-model="points"
+                                    v-model="form.points"
                                     type="number"
                                     min="1"
                                     
@@ -93,7 +90,29 @@ import { Head } from "@inertiajs/inertia-vue3";
     </AuthenticatedLayout>
 </template>
 
-<script></script>
+<script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/inertia-vue3";
+
+const form= useForm({
+    question: "",
+    answer:"",
+    points:1
+})
+
+
+const Submit = () => {
+    form.post('/question/store',form)
+    form.reset();
+    // form.reset('points');
+    
+}
+
+
+
+
+</script>
 
 <style>
 
