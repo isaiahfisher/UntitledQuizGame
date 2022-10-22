@@ -3,7 +3,7 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-bol text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Quiz Time
             </h2>
         </template>
@@ -26,6 +26,7 @@
 
                 <button
                     className="submitBtn"
+                    v-on:keypress.enter="click"
                     @click="
                         answerQuestion();
                         nextQuestion();
@@ -174,6 +175,16 @@ const showResults = () => {
         table.style.display = "none";
     }
 };
+
+window.addEventListener('keydown', (e) =>{
+    if(e.key == 'Enter'){
+        answerQuestion();
+        nextQuestion();
+    }
+})
+
+
+
 </script>
 
 <style>
@@ -274,11 +285,6 @@ h1 {
 }
 button:disabled {
     opacity: 0.5;
-}
-h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
 }
 p {
     color: #8f8f8f;
