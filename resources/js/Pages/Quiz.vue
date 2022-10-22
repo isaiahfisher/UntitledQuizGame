@@ -78,6 +78,7 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Inertia } from '@inertiajs/inertia';
 import { Head } from "@inertiajs/inertia-vue3";
 import { ref, computed } from "vue";
 
@@ -95,10 +96,8 @@ const getCurrentQuestion = computed(() => {
 const nextQuestion = () => {
     
 
-    fetch("props.quiz.id/question/props.quiz.questions[currentQuestion.value].id/answer"){
-        
-    }
-
+    window.axios.post('api/quiz/' + props.quiz.id + '/question/' + props.quiz.questions[currentQuestion.value].id + '/answer', 
+    {answer: answer.value});
 
     if (currentQuestion.value < props.quiz.questions.length - 1) {
         currentQuestion.value++;

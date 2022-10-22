@@ -15,6 +15,6 @@ use App\Http\Controllers\Api\AnswerController;
 |
 */
 
-Route::prefix('quiz')->middleware('auth')->name('quizzes.')->group(function () {
+Route::prefix('quiz')->name('quizzes.')->group(function () {
     Route::post('{quiz}/question/{question}/answer', AnswerController::class);
 });
