@@ -30,14 +30,14 @@ import { Head } from "@inertiajs/inertia-vue3";
                 </div>
                 <div id="object">
                     <button id="bgButton">
-                        <img id="quizImg" src="../../imgs/accountIcon.webp" />
-                        <b><a id="ref">Account Information</a></b>
+                        <a :href="route('account')"><img  id="quizImg" src="../../imgs/accountIcon.webp" /></a>
+                        <b><a id="ref" :href="route('account')">Account Information</a></b>
                     </button>
                 </div>
                 <div id="object">
                     <button id="bgButton">
-                        <img id="quizImg" src="../../imgs/addQuestion.webp" />
-                        <b><a id="ref">Create Question(s)</a></b>
+                        <a :href="route('create-question')"><img id="quizImg" src="../../imgs/addQuestion.webp" /></a>
+                        <b><a :href="route('create-question')" id="ref">Create Question(s)</a></b>
                     </button>
                 </div>
             </div>

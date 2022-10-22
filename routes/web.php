@@ -27,6 +27,14 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
 
-Route::get('/quiz', [QuizController::class, 'create'])->name('generate-quiz');
+Route::get('/quiz', [QuizController::class, 'create'])->middleware(['auth','verified'])->name('generate-quiz');
+
+Route::get('/account', function(){
+    return Inertia::render('Account');
+})->middleware(['auth','verified'])->name('account');
+
+Route::get('/create-question', function(){
+    return Inertia::render('CreateQuestion');
+})->middleware(['auth','verified'])->name('create-question');
 
 require __DIR__.'/auth.php';
