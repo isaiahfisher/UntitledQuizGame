@@ -24,8 +24,8 @@ import { Head } from "@inertiajs/inertia-vue3";
             <div class="grid grid-cols-3">
                 <div id="object">
                     <button id="bgButton">
-                        <img id="quizImg" src="../../imgs/quiz.png" />
-                        <b><a id="ref">Generate Quiz</a></b>
+                        <a :href="route('generate-quiz')" ><img id="quizImg" src="../../imgs/quiz.png" /> </a>
+                        <b><a id="ref" :href="route('generate-quiz')"  >Generate Quiz</a></b>
                     </button>
                 </div>
                 <div id="object">

@@ -3,7 +3,7 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-bol text-xl text-gray-800 leading-tight">
                 Quiz Time
             </h2>
         </template>
@@ -13,11 +13,11 @@
         >
             <section class="quiz" v-if="!quizCompleted">
                 <div class="quiz-info">
-                    <h6 id="questionData" class="questions">{{
+                    <h6 id="questionData">{{
                         getCurrentQuestion.value
                     }}</h6>
                     <span class="score"
-                        >Score {{ score }} /
+                        >Question #{{ currentQuestion+1 }}  out of
                         {{ props.quiz.questions.length }}</span
                     >
                 </div>
@@ -42,6 +42,35 @@
                     Your score is {{ score }} /
                     {{ props.quiz.questions.length }}
                 </p>
+                <p>
+                <button className="resultsBtn" @click="showResults()">View Results</button>
+                </p>
+
+                <table id="resultsTable" className="resultsTable" style="display:none">
+                    <thead class="border-b">
+                        <tr>
+                            <th colspan="2" class="text-sm font-medium text-white-900 px-6 py-4 text-left">Results</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Question #</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Your Answer</td>
+                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Correct Answer</td>
+                        </tr>
+                        <tr>
+                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
+                                1
+                            </td>
+                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
+                                false
+                            </td>
+                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
+                                true
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
     </AuthenticatedLayout>
@@ -55,7 +84,6 @@ import { ref, computed } from "vue";
 const props = defineProps(["quiz"]);
 
 const quizCompleted = ref(false);
-console.log(props);
 const currentQuestion = ref(0);
 let score = ref(0);
 const answer = ref("");
@@ -65,6 +93,13 @@ const getCurrentQuestion = computed(() => {
     return question;
 });
 const nextQuestion = () => {
+    
+
+    fetch("props.quiz.id/question/props.quiz.questions[currentQuestion.value].id/answer"){
+        
+    }
+
+
     if (currentQuestion.value < props.quiz.questions.length - 1) {
         currentQuestion.value++;
     } else {
@@ -74,15 +109,32 @@ const nextQuestion = () => {
 const answerQuestion = () => {
     if (answer.value == props.quiz.questions[0].correct_answer) {
         score.value++;
-        console.log(score);
     }
     return score;
 };
+
+const showResults = () => {
+    let table = document.getElementById("resultsTable");
+    if(table.style.display === "none"){
+        table.style.display = "block";
+    }else{
+        table.style.display = "none";
+    }
+}
+
+
+
+
+
 </script>
 
 <style>
-#questionData {
-    color: #2cce7d;
+
+
+.resultsTable{
+    margin-top:2em;
+    border: 1px solid #22c55e;
+    border-radius: 20px;
 }
 
 input {
@@ -159,6 +211,21 @@ h1 {
     font-size: 1.2rem;
     border-radius: 0.5rem;
 }
+
+.resultsBtn {
+    appearance: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #2cce7d;
+    color: #1c1917;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    margin-top:.5em;
+}
 button:disabled {
     opacity: 0.5;
 }
@@ -173,7 +240,7 @@ p {
     text-align: center;
 }
 
-h6 {
+#questionData{
     font-size: clamp(1rem, 1vw + .3rem, 2rem);
     position: relative;
     font-family: "Source Code Pro", monospace;
@@ -182,8 +249,8 @@ h6 {
     color: #22c55e;
 }
 
-h6::before,
-h6::after {
+#questionData::before,
+#questionData::after {
     content: "";
     position: absolute;
     top: 0;
@@ -192,12 +259,12 @@ h6::after {
     left: 0;
 }
 
-h6::before {
+#questionData::before {
     background: #5f5c5b;
     animation: typewriter 6.5s steps(32) 1s forwards;
 }
 
-h6::after {
+#questionData::after {
     width: 0.125em;
     background: #22c55e;
     animation: typewriter 6.5s steps(32) 1s forwards,
@@ -219,13 +286,6 @@ h6::after {
 @keyframes blink {
     to {
         background: transparent;
-    }
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 </style>
