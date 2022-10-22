@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/inertia-vue3";
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Account Information
+                Account Information
             </h2>
         </template>
 
@@ -23,14 +23,10 @@ import { Head } from "@inertiajs/inertia-vue3";
     </AuthenticatedLayout>
 </template>
 
-<script>
-    
-</script>
+<script></script>
 
 <style>
-
-#banner{
+#banner {
     margin-top: 1em;
 }
-
 </style>

@@ -49,7 +49,6 @@ defineProps({
 </template>
 
 <style>
-
 h1 {
     font-size: clamp(1rem, 3vw + 1rem, 4rem);
     position: relative;

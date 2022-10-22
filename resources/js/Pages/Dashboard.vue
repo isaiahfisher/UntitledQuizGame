@@ -24,20 +24,42 @@ import { Head } from "@inertiajs/inertia-vue3";
             <div class="grid grid-cols-3">
                 <div id="object">
                     <button id="bgButton">
-                        <a :href="route('generate-quiz')" ><img id="quizImg" src="../../imgs/quiz.png" /> </a>
-                        <b><a id="ref" :href="route('generate-quiz')"  >Generate Quiz</a></b>
+                        <a :href="route('generate-quiz')"
+                            ><img id="quizImg" src="../../imgs/quiz.png" />
+                        </a>
+                        <b
+                            ><a id="ref" :href="route('generate-quiz')"
+                                >Generate Quiz</a
+                            ></b
+                        >
                     </button>
                 </div>
                 <div id="object">
                     <button id="bgButton">
-                        <a :href="route('account')"><img  id="quizImg" src="../../imgs/accountIcon.webp" /></a>
-                        <b><a id="ref" :href="route('account')">Account Information</a></b>
+                        <a :href="route('account')"
+                            ><img
+                                id="quizImg"
+                                src="../../imgs/accountIcon.webp"
+                        /></a>
+                        <b
+                            ><a id="ref" :href="route('account')"
+                                >Account Information</a
+                            ></b
+                        >
                     </button>
                 </div>
                 <div id="object">
                     <button id="bgButton">
-                        <a :href="route('create-question')"><img id="quizImg" src="../../imgs/addQuestion.webp" /></a>
-                        <b><a :href="route('create-question')" id="ref">Create Question(s)</a></b>
+                        <a :href="route('create-question')"
+                            ><img
+                                id="quizImg"
+                                src="../../imgs/addQuestion.webp"
+                        /></a>
+                        <b
+                            ><a :href="route('create-question')" id="ref"
+                                >Create Question(s)</a
+                            ></b
+                        >
                     </button>
                 </div>
             </div>
@@ -78,7 +100,7 @@ import { Head } from "@inertiajs/inertia-vue3";
     height: 10em;
 }
 
-#banner{
+#banner {
     margin-top: 1em;
 }
 </style>

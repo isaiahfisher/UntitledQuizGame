@@ -13,11 +13,9 @@
         >
             <section class="quiz" v-if="!quizCompleted">
                 <div class="quiz-info">
-                    <h6 id="questionData">{{
-                        getCurrentQuestion.value
-                    }}</h6>
+                    <h6 id="questionData">{{ getCurrentQuestion.value }}</h6>
                     <span class="score"
-                        >Question #{{ currentQuestion+1 }}  out of
+                        >Question #{{ currentQuestion + 1 }} out of
                         {{ props.quiz.questions.length }}</span
                     >
                 </div>
@@ -26,7 +24,8 @@
                     <input v-model="answer" />
                 </div>
 
-                <button className="submitBtn"
+                <button
+                    className="submitBtn"
                     @click="
                         answerQuestion();
                         nextQuestion();
@@ -43,30 +42,72 @@
                     {{ props.quiz.questions.length }}
                 </p>
                 <p>
-                <button className="resultsBtn" @click="showResults()">View Results</button>
+                    <button className="resultsBtn" @click="showResults()">
+                        View Results
+                    </button>
                 </p>
 
-                <table id="resultsTable" className="resultsTable" style="display:none">
+                <table
+                    id="resultsTable"
+                    className="resultsTable"
+                    style="display: none"
+                >
                     <thead class="border-b">
                         <tr>
-                            <th colspan="2" class="text-sm font-medium text-white-900 px-6 py-4 text-left">Results</th>
+                            <th
+                                colspan="2"
+                                class="text-sm font-medium text-white-900 px-6 py-4 text-left"
+                            >
+                                Results
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="border-b">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Question #</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Your Answer</td>
-                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">Correct Answer</td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                Question #
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                Question Asked
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                Your Answer
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                Correct Answer
+                            </td>
                         </tr>
-                        <tr>
-                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
-                                1
+                        <tr
+                            v-for="(question, index) in props.quiz.questions"
+                            :key="question"
+                        >
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                {{ index + 1 }}
                             </td>
-                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
-                                false
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                {{ question.value }}
                             </td>
-                            <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900">
-                                true
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                {{ userAnswers[index] }}
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
+                            >
+                                {{ question.correct_answer }}
                             </td>
                         </tr>
                     </tbody>
@@ -78,7 +119,7 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Inertia } from '@inertiajs/inertia';
+import { Inertia } from "@inertiajs/inertia";
 import { Head } from "@inertiajs/inertia-vue3";
 import { ref, computed } from "vue";
 
@@ -88,6 +129,7 @@ const quizCompleted = ref(false);
 const currentQuestion = ref(0);
 let score = ref(0);
 const answer = ref("");
+const userAnswers = [];
 const getCurrentQuestion = computed(() => {
     let question = props.quiz.questions[currentQuestion.value];
     question.index = currentQuestion.value;
@@ -96,42 +138,47 @@ const getCurrentQuestion = computed(() => {
 const nextQuestion = () => {
     if (currentQuestion.value < props.quiz.questions.length - 1) {
         currentQuestion.value++;
-    } else { 
-        window.axios.post('api/quiz/' + props.quiz.id, {earned_points: score.value});
+    } else {
+        window.axios.post("api/quiz/" + props.quiz.id, {
+            earned_points: score.value,
+        });
         quizCompleted.value = true;
     }
 };
 
 const answerQuestion = () => {
-    if (answer.value == props.quiz.questions[currentQuestion.value].correct_answer) {
+    userAnswers[currentQuestion.value] = answer.value;
+    if (
+        answer.value.toUpperCase() ==
+        props.quiz.questions[currentQuestion.value].correct_answer.toUpperCase()
+    ) {
         score.value++;
     }
-    window.axios.post('api/quiz/' + props.quiz.id + '/question/' + props.quiz.questions[currentQuestion.value].id + '/answer', 
-    {answer: answer.value});
+    window.axios.post(
+        "api/quiz/" +
+            props.quiz.id +
+            "/question/" +
+            props.quiz.questions[currentQuestion.value].id +
+            "/answer",
+        { answer: answer.value }
+    );
     answer.value = "";
     return score;
 };
 
 const showResults = () => {
     let table = document.getElementById("resultsTable");
-    if(table.style.display === "none"){
+    if (table.style.display === "none") {
         table.style.display = "block";
-    }else{
+    } else {
         table.style.display = "none";
     }
-}
-
-
-
-
-
+};
 </script>
 
 <style>
-
-
-.resultsTable{
-    margin-top:2em;
+.resultsTable {
+    margin-top: 2em;
     border: 1px solid #22c55e;
     border-radius: 20px;
 }
@@ -146,7 +193,7 @@ input {
 .quiz-background {
     background-color: #1c1917;
     color: #fff;
-    border: 1px solid #2cce7d
+    border: 1px solid #2cce7d;
 }
 
 h1 {
@@ -159,7 +206,7 @@ h1 {
     width: 100%;
     max-width: 900px;
     border: 1px solid #2cce7d;
-    border-radius:20px;
+    border-radius: 20px;
 }
 .quiz-info {
     display: flex;
@@ -223,7 +270,7 @@ h1 {
     text-transform: uppercase;
     font-size: 1.2rem;
     border-radius: 0.5rem;
-    margin-top:.5em;
+    margin-top: 0.5em;
 }
 button:disabled {
     opacity: 0.5;
@@ -239,8 +286,8 @@ p {
     text-align: center;
 }
 
-#questionData{
-    font-size: clamp(1rem, 1vw + .3rem, 2rem);
+#questionData {
+    font-size: clamp(1rem, 1vw + 0.3rem, 2rem);
     position: relative;
     font-family: "Source Code Pro", monospace;
     position: relative;

@@ -1,5 +1,3 @@
-
-
 <template>
     <Head title="Add a Question" />
 
@@ -26,7 +24,6 @@
                     >
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1 px-3 mb-6 md:mb-0">
-
                                 <label
                                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-question"
@@ -62,7 +59,8 @@
                                     placeholder="Insert Answer Here"
                                 />
                             </div>
-                        </div><div class="flex flex-wrap -mx-3 mb-6">
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full px-3">
                                 <label
                                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -77,12 +75,13 @@
                                     v-model="form.points"
                                     type="number"
                                     min="1"
-                                    
                                 />
                             </div>
                         </div>
 
-                        <button className="submitBtn" type="submit">Submit Question</button>
+                        <button className="submitBtn" type="submit">
+                            Submit Question
+                        </button>
                     </form>
                 </div>
             </div>
@@ -91,31 +90,24 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from "@inertiajs/inertia-vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 
-const form= useForm({
+const form = useForm({
     question: "",
-    answer:"",
-    points:1
-})
-
+    answer: "",
+    points: 1,
+});
 
 const Submit = () => {
-    form.post('/question/store',form)
+    form.post("/question/store", form);
     form.reset();
     // form.reset('points');
-    
-}
-
-
-
-
+};
 </script>
 
 <style>
-
 .submitBtn {
     appearance: none;
     outline: none;
@@ -134,7 +126,7 @@ const Submit = () => {
     margin-top: 1em;
 }
 
-#MainDiv{
+#MainDiv {
     overflow: hidden;
 }
 
@@ -147,10 +139,10 @@ const Submit = () => {
     border-radius: 5px;
 }
 
-#questionLabel{
-    margin-top:1em;
-    font-size:medium;
-    color:white;
+#questionLabel {
+    margin-top: 1em;
+    font-size: medium;
+    color: white;
 }
 
 #holderDiv {
@@ -163,10 +155,10 @@ const Submit = () => {
     resize: none;
 }
 
-#answerLabel{
-    margin-top:1em;
-    font-size:medium;
-    color:white;
+#answerLabel {
+    margin-top: 1em;
+    font-size: medium;
+    color: white;
     text-align: left;
 }
 </style>
