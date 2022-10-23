@@ -25,6 +25,12 @@ defineProps({
                 class="text-sm text-gray-700 dark:text-gray-500 underline"
                 >Dashboard</Link
             >
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('questions.create')"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Create a Question</Link
+            >
 
             <template v-else>
                 <Link
