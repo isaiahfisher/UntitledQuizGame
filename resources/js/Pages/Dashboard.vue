@@ -37,7 +37,7 @@ import { Head } from "@inertiajs/inertia-vue3";
                 <div id="object">
                     <button id="bgButton">
                         <img id="quizImg" src="../../imgs/addQuestion.webp" />
-                        <b><a id="ref">Create Question(s)</a></b>
+                        <b><a id="ref" :href="route('questions.create')">Create Question(s)</a></b>
                     </button>
                 </div>
             </div>
