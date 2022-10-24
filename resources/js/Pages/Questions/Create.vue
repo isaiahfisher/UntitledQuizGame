@@ -24,7 +24,8 @@ const form = useForm({
             option: "",
         },
     ],
-    correctAnswer: []
+    correctAnswer: [],
+    points: 1
     
 });
 
@@ -57,9 +58,8 @@ const optionType = () => {
 }
 
 const submit = () => {
-    console.log(form.options)
-    console.log(form.correctAnswer)
-}
+    form.post(route("questions.store"));
+};
 
 
 </script>
@@ -77,6 +77,11 @@ const submit = () => {
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-5">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
+                        <div class="flex items-center justify-end">		
+                            <div class="lg:ml-40 ml-10 space-x-8">
+                                <PrimaryButton class="px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"><a :href="route('questions.index')">All Questions</a></PrimaryButton>
+                            </div>
+                        </div>
                         <form @submit.prevent="submit">
                             <div class="mb-6">
                                 <label
@@ -99,46 +104,72 @@ const submit = () => {
                                 </div>
                             </div>
                             <div class="mb-6">
-                                <label
-                                    for="Category"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Category</label
-                                >
-                                <input
-                                    type="text"
-                                    v-model="form.category"
-                                    name="category"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder=""
-                                />
-                                <div
-                                    v-if="form.errors.category"
-                                    class="text-sm text-red-600"
-                                >
-                                    {{ form.errors.category }}
+                                <div class="grid grid-cols-5 gap-4">
+                                    <div class="col-span-2">
+                                        <label
+                                            for="Category"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            >Category</label
+                                        >
+                                        <input
+                                            type="text"
+                                            v-model="form.category"
+                                            name="category"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            placeholder=""
+                                        />
+                                        <div
+                                            v-if="form.errors.category"
+                                            class="text-sm text-red-600"
+                                        >
+                                            {{ form.errors.category }}
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label
+                                            for="Type"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            >Type</label
+                                        >
+                                        <select 
+                                            v-model="form.type"
+                                            name="type"
+                                            @change="optionType()"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            >
+                                            <option value=""></option>
+                                            <option value="tf">True or False</option>
+                                            <option value="multiple">Mutliple Choice</option>
+                                        </select> 
+                                        <div
+                                            v-if="form.errors.type"
+                                            class="text-sm text-red-600"
+                                        >
+                                            {{ form.errors.type }}
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <label
+                                            for="Type"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            >Points</label
+                                        >
+                                        <input
+                                            type="number"
+                                            v-model="form.points"
+                                            name="category"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            placeholder=""
+                                        />
+                                        <div
+                                            v-if="form.errors.points"
+                                            class="text-sm text-red-600"
+                                        >
+                                            {{ form.errors.points }}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-6">
-                                <label
-                                    for="Type"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Type</label
-                                >
-                                <select 
-                                    v-model="form.type"
-                                    name="type"
-                                    @change="optionType()"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    >
-                                    <option value="tf">True or False</option>
-                                    <option value="multiple" selected>Mutliple Choice</option>
-                                </select> 
-                                <div
-                                    v-if="form.errors.type"
-                                    class="text-sm text-red-600"
-                                >
-                                    {{ form.errors.type }}
-                                </div>
+                                
                             </div>
                             <div class="mb-6" v-show="form.type === 'multiple'">
                                 <div v-for="(options, index) in form.options" :key="index">
@@ -166,9 +197,6 @@ const submit = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
                                 </div>
                             </div>
                             <div class="mb-6 flex justify-end" v-show="form.type === 'multiple'">
@@ -176,6 +204,7 @@ const submit = () => {
                                     type="button"
                                     class="text-white bg-blue-600 focus:outline-none  font-sm rounded-md text-sm px-3 py-1.5 "
                                     @click="addMore()"
+                                    v-show="form.options.length < 6"
                                     >
                                     Add New Option
                             </button>

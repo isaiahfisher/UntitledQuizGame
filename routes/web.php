@@ -30,6 +30,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/quiz', [QuizController::class, 'create'])->name('generate-quiz');
 
-Route::resource('questions',QuestionsController::class);
+Route::resource('questions',QuestionsController::class)->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';
