@@ -6,6 +6,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionUploadController;
 //use App\Http\Controllers\AccountController;
 use Inertia\Inertia;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,7 @@ Route::get('/question/create', function(){
 })->middleware(['auth','verified'])->name('create-question');
 
 Route::post('/question/store', QuestionUploadController::class)->middleware(['auth','verified'])->name('store-question');
+
+Route::resource('questions',QuestionsController::class);
 
 require __DIR__.'/auth.php';
