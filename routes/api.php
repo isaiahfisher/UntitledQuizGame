@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AnswerController;
+use App\Http\Controllers\Api\GradeQuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('quiz')->name('quizzes.')->group(function () {
+    Route::post('{quiz}', GradeQuizController::class);
+    Route::post('{quiz}/question/{question}/answer', AnswerController::class);
 });

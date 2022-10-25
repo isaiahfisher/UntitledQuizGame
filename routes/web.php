@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuestionUploadController;
+//use App\Http\Controllers\AccountController;
 use Inertia\Inertia;
 use App\Http\Controllers\QuestionsController;
 
@@ -28,7 +30,17 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
 
-Route::get('/quiz', [QuizController::class, 'create'])->name('generate-quiz');
+Route::get('/quiz', [QuizController::class, 'create'])->middleware(['auth','verified'])->name('generate-quiz');
+
+Route::get('/account', function(){
+    return Inertia::render('Account');
+})->middleware(['auth','verified'])->name('account');
+
+Route::get('/question/create', function(){
+    return Inertia::render('CreateQuestion');
+})->middleware(['auth','verified'])->name('create-question');
+
+Route::post('/question/store', QuestionUploadController::class)->middleware(['auth','verified'])->name('store-question');
 
 Route::resource('questions',QuestionsController::class);
 
