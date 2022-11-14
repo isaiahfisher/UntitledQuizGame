@@ -6,6 +6,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionUploadController;
 use Inertia\Inertia;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\Stats;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +32,16 @@ Route::get('/dashboard', function () {
 
 Route::get('/quiz', [QuizController::class, 'create'])->middleware(['auth','verified'])->name('generate-quiz');
 
-Route::get('/account', function(){
-    return Inertia::render('Account');
-})->middleware(['auth','verified'])->name('account');
+// Route::get('/account', function(){
+//     return Inertia::render('Account');
+// })->middleware(['auth','verified'])->name('account');
 
 Route::get('/question/create', function(){
     return Inertia::render('CreateQuestion');
 })->middleware(['auth','verified'])->name('create-question');
 
 Route::post('/question/store', QuestionUploadController::class)->middleware(['auth','verified'])->name('store-question');
+
+Route::get('/account', Stats::class)->middleware(['auth','verified'])->name('account');
 
 require __DIR__.'/auth.php';
