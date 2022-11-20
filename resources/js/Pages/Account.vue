@@ -1,5 +1,3 @@
-
-
 <template>
     <Head title="Account Information" />
 
@@ -80,12 +78,24 @@
                     <div id="borderDiv"></div>
                 </div>
                 <div id="statDataDiv">
-                    <label
-                        id="statisticsLabel"
-                        class="font-semibold text-xl text-black leading-tight"
-                    >
-                        Insert Statistics Here</label
-                    >
+                    <div class="row">
+                        <div class="column">
+                            <label>
+                                <b> Quiz Average: </b>
+                            </label>
+                            <H1 id="header1">
+                                <b>{{$page.props.average * 100}}%</b>
+                            </H1>
+                        </div>
+                        <div class="column">
+                            <label>
+                                <b> Number of Quizzes Taken: </b>
+                            </label>
+                            <H1  id="header1">
+                                <b>{{$page.props.numQuizzes}}</b>
+                            </H1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,16 +105,38 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/inertia-vue3";
-const props = defineProps(["auth"]);
+const props = defineProps(["auth","numQuizzes","earnedPoints","pointsPossible","average"]);
 
 let date = new Date(Date.parse(props.auth.user.created_at));
-
-
-
-
 </script>
 
 <style scoped>
+
+
+#header1{
+    font-size: xx-large;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    margin-bottom: 15%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
 #banner {
     margin-top: 1em;
 }
@@ -116,19 +148,18 @@ let date = new Date(Date.parse(props.auth.user.created_at));
     height: 25em;
 }
 
-#helperDiv{
+#helperDiv {
     text-align: -webkit-center;
 }
 
-#statsLabelDiv{
- text-align: left;
- margin-top:.5em;
- margin-left:.5em;
- 
+#statsLabelDiv {
+    text-align: left;
+    margin-top: 0.5em;
+    margin-left: 0.5em;
 }
-#borderDiv{
+#borderDiv {
     border-bottom: 1px solid black;
-    width:48.5em;
+    width: 48.5em;
 }
 
 #accountDiv {

@@ -20,3 +20,4 @@ Route::prefix('quiz')->name('quizzes.')->group(function () {
     Route::post('{quiz}', GradeQuizController::class);
     Route::post('{quiz}/question/{question}/answer', AnswerController::class);
 });
+
