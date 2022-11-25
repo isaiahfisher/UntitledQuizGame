@@ -13,7 +13,7 @@
         >
             <section class="quiz" v-if="!quizCompleted">
                 <div class="quiz-info">
-                    <h6 id="questionData">{{ getCurrentQuestion.value }}</h6>
+                    <h6 :class="'questionData'" :key="animationReplay">{{ getCurrentQuestion.value }}</h6>
                     <span class="score"
                         >Question #{{ currentQuestion + 1 }} out of
                         {{ props.quiz.questions.length }}</span
@@ -131,6 +131,9 @@ const currentQuestion = ref(0);
 let score = ref(0);
 const answer = ref("");
 const userAnswers = [];
+
+const animationReplay = ref(0);
+
 const getCurrentQuestion = computed(() => {
     let question = props.quiz.questions[currentQuestion.value];
     question.index = currentQuestion.value;
@@ -145,6 +148,7 @@ const nextQuestion = () => {
         });
         quizCompleted.value = true;
     }
+    animationReplay.value++;
 };
 
 const answerQuestion = () => {
@@ -292,7 +296,10 @@ p {
     text-align: center;
 }
 
-#questionData {
+.test {
+    color: red;
+}
+.questionData {
     font-size: clamp(1rem, 1vw + 0.3rem, 2rem);
     position: relative;
     font-family: "Source Code Pro", monospace;
@@ -301,8 +308,8 @@ p {
     color: #22c55e;
 }
 
-#questionData::before,
-#questionData::after {
+.questionData::before,
+.questionData::after {
     content: "";
     position: absolute;
     top: 0;
@@ -311,12 +318,12 @@ p {
     left: 0;
 }
 
-#questionData::before {
+.questionData::before {
     background: #5f5c5b;
     animation: typewriter 6.5s steps(32) 1s forwards;
 }
 
-#questionData::after {
+.questionData::after {
     width: 0.125em;
     background: #22c55e;
     animation: typewriter 6.5s steps(32) 1s forwards,
