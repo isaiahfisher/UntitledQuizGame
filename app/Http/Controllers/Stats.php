@@ -16,7 +16,11 @@ class Stats extends Controller
 
     public function __invoke(){
         $user=Auth::user();
-        $stats=$user->stat()->get()[0];
+        $stats=$user->stat()->first();
+        if (!$stats)
+        {
+            return Inertia::render('Account', ["numQuizzes" => 0, "earnedPoints" => 0, "pointsPossible" => 0, "average" => 0]);
+        }
         $numQuizzes=$stats->total_num_quizzes;
         $earnedPoints=$stats->total_earned_points;
         $pointsPossible=$stats->total_points_possible;

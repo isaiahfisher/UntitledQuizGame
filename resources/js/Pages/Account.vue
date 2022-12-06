@@ -84,7 +84,7 @@
                                 <b> Quiz Average: </b>
                             </label>
                             <H1 id="header1">
-                                <b>{{$page.props.average * 100}}%</b>
+                                <b>{{($page.props.average * 100).toFixed(2)}}%</b>
                             </H1>
                         </div>
                         <div class="column">
