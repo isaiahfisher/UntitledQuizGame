@@ -29,14 +29,14 @@ class QuestionTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/confirm-password');
+        $response = $this->actingAs($user)->post('/confirm-password', ['password' => 'password']);
 
-        $response = $this->actingAs($user)->post('/question/create', [
+        $response = $this->actingAs($user)->post('/question/store', [
             'question' => 'This is a test question',
             'answer' => 'Goodluck',
             'points' => '1'
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
     }
 }
