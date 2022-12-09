@@ -13,7 +13,6 @@ use App\Providers\RouteServiceProvider;
 
 class QuizTest extends TestCase
 {
-    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -22,19 +21,10 @@ class QuizTest extends TestCase
     public function test_quiz_can_be_rendered()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/quiz');
-
-        $response->assertStatus(200);
-    }
-
-    public function test_quiz_questions_loaded() 
-    {
-        $user = User::factory()->create();
-        $quiz = Quiz::factory()->create();
-        
-        $response = $this->actingAs($user)->post('/quiz', [
+        $response = $this->actingAs($user)->post('/confirm-password', [
+            'password' => 'password',
         ]);
-        
+        $response = $this->actingAs($user)->get('/quiz');
         $response->assertStatus(200);
     }
 }

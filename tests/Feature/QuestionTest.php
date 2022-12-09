@@ -11,7 +11,6 @@ use App\Providers\RouteServiceProvider;
 
 class QuestionTest extends TestCase
 {
-    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
