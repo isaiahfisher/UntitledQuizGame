@@ -1,0 +1,82 @@
+version: '3'
+
+networks:
+  laravel:
+
+services:
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-laravel}
+    restart: unless-stopped
+    container_name: nginx
+    ports:
+      - 8080:8000
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-laravel}
+    container_name: php
+    ports:
+      - ":9000"
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    networks:
+      - laravel
+
+  laravel-migrate-seed:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-laravel}
+    container_name: laravel-migrate-seed
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    profiles: ["migrate-seed"]
+    working_dir: /var/www/html
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+      php artisan migrate
+      php artisan db:seed
+    networks:
+      - laravel
+
+  artisan:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-laravel}
+    container_name: artisan
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    working_dir: /var/www/html
+    profiles: ["artisan"]
+    entrypoint: ['php', '/var/www/html/artisan']
+    networks:
+      - laravel
