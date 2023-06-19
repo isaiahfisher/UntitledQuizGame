@@ -1,0 +1,11 @@
+config:
+  target: 'http://nginx:8000'
+  phases:
+    - name: "simulate hundreds of login page requests"
+      duration: 10
+      arrivalRate: 10
+scenarios:
+  - name: "Simulate hundreds of get requests to the login langing page"
+    flow:
+    - get:
+        url: '/'

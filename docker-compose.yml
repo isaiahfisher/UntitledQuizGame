@@ -80,3 +80,15 @@ services:
     entrypoint: ['php', '/var/www/html/artisan']
     networks:
       - laravel
+
+  artillery:
+    image: artilleryio/artillery:latest
+    container_name: artillery
+    volumes:
+      - ./artillery_tests.yaml:/scripts/artillery_tests.yaml
+    profiles: ["artillery"]
+    entrypoint: ['run', 'run', '/scripts/artillery_tests.yaml']
+    depends_on:
+      - nginx
+    networks:
+      - laravel
